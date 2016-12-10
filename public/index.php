@@ -15,6 +15,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
 use PiggyBank\Application\Action\HomePage;
+use PiggyBank\Application\Action\Deposit;
 
 chdir(dirname(__DIR__));
 require 'vendor/autoload.php';
@@ -52,7 +53,7 @@ $app->pipeRoutingMiddleware();
 $app->pipeDispatchMiddleware();
 
 $app->get('/', HomePage::class);
-//$app->post('/ping', Ping::class);
+$app->post('/deposit', Deposit::class);
 
 $whoops->register();
 $app->run();
