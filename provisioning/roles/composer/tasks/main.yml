@@ -1,0 +1,35 @@
+---
+
+- name: Check is Composer installed
+  stat: path=/usr/bin/composer
+  register: composer_bin
+
+- name: Download Composer installer
+  get_url:
+    url: https://getcomposer.org/installer
+    dest: /tmp/composer-installer.php
+    mode: 0755
+    checksum: "sha384:aa96f26c2b67226a324c27919f1eb05f21c248b987e6195cad9690d5c1ff713d53020a02ac8c217dbf90a7eacc9d141d"
+  when: not composer_bin.stat.exists
+
+- name: Install Composer
+  command: >
+    /usr/bin/php /tmp/composer-installer.php --version=1.2.4
+    chdir=/tmp
+    creates: /tmp/composer.phar
+  when: not composer_bin.stat.exists
+
+- name: Move Composer
+  shell: >
+    mv /tmp/composer.phar /usr/bin/composer
+  when: not composer_bin.stat.exists
+
+- name: Ensure Composer directory exists.
+  file:
+    path: ~/.composer
+    owner: vagrant
+    group: vagrant
+    state: directory
+
+- name: Install vendors
+  composer: command=install working_dir=/var/www no_dev=no

@@ -1,0 +1,29 @@
+---
+
+- name: Install postgresql
+  dnf: name="{{ item }}" state=installed
+  with_items: "{{ psql_packages }}"
+
+- name: Initialize the postgresql database
+  command: /usr/bin/postgresql-setup --initdb --unit postgresql creates=/var/lib/pgsql/data/pg_hba.conf
+
+- name: Start postgresql and enable it on boot
+  service: name=postgresql state=started enabled=yes
+
+- name: Enable passwordless sudo
+  lineinfile: dest=/etc/sudoers regexp=^vagrant line="vagrant ALL=(postgres) NOPASSWD:/bin/sh"
+
+- name: Create the database user
+  postgresql_user: name=piggybank password=piggybank role_attr_flags=CREATEDB state=present
+  become: yes
+  become_user: postgres
+  become_method: sudo
+
+- name: Change ident identification to md5
+  shell: /bin/sed -i '/^host/s/ident/md5/' /var/lib/pgsql/data/pg_hba.conf
+  notify: restart dbserver
+
+- meta: flush_handlers
+
+- name: Create project database
+  postgresql_db: name=piggybank owner=piggybank login_user=piggybank login_password=piggybank login_host=127.0.0.1

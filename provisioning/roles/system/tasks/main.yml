@@ -1,0 +1,23 @@
+---
+
+- name: Install python2
+  raw: dnf --assumeyes install python2 python2-dnf
+
+- name: Gather facts
+  setup:
+
+- name: Make sure system is up to date
+  dnf: name=* state=latest
+
+- name: Install packages required for system
+  dnf: name="{{ item }}" state=present
+  with_items: "{{ system_packages }}"
+
+- name: Turn off selinux
+  selinux: state=disabled
+
+- name: Setup date and time
+  command: /usr/bin/timedatectl set-ntp true
+
+- name: Setup timezone
+  command: /usr/bin/timedatectl set-timezone Europe/Belgrade

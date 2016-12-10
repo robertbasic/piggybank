@@ -1,0 +1,28 @@
+---
+
+- name: Install nginx
+  dnf: name=nginx state=installed
+
+- name: Start nginx and enable it on boot
+  service: name=nginx state=started enabled=yes
+
+- name: Ensure conf.d directory exists in /etc/nginx
+  file: dest=/etc/nginx/conf.d state=directory
+
+- name: Copy nginx.conf template
+  template:
+    src: "templates/nginx.j2"
+    dest: "/etc/nginx/nginx.conf"
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart webserver
+
+- name: Copy nginx project configuration template
+  template:
+    src: "templates/piggybank.j2"
+    dest: "/etc/nginx/conf.d/piggybank.conf"
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart webserver

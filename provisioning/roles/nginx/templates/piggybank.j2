@@ -1,0 +1,34 @@
+server {
+    underscores_in_headers on;
+
+    listen 80;
+
+    server_name piggybank.local www.piggybank.local;
+
+    root /var/www/public;
+
+    index index.php;
+
+    access_log /var/log/nginx/piggybank.access.log;
+    error_log /var/log/nginx/piggybank.error.log;
+
+    location / {
+        try_files $uri $uri/ @public;
+    }
+
+    location @public {
+        rewrite / /index.php;
+    }
+
+    location ~ \.php$ {
+        if (!-e $request_filename) {
+            rewrite / /index.php last;
+        } ## Catch 404s that try_files miss
+
+        expires         off; ## Do not cache dynamic content
+        fastcgi_pass    unix:/var/run/php-fpm/www.sock;
+        fastcgi_param   SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+        fastcgi_param   APPLICATION_ENV production;
+        include         /etc/nginx/fastcgi_params;
+    }
+}

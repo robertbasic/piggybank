@@ -1,0 +1,8 @@
+---
+
+system_packages:
+  - libselinux-python
+  - python-psycopg2
+  - git
+  - zip
+  - unzip
