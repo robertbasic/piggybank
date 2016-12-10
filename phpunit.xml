@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<phpunit
+    bootstrap="./vendor/autoload.php"
+    colors="true"
+    stopOnFailure="false"
+    processIsolation="false"
+    backupGlobals="false"
+    syntaxCheck="true"
+>
+    <testsuite name="PiggyBank unit tests">
+        <directory>./test/PiggyBankTest</directory>
+    </testsuite>
+
+    <filter>
+        <whitelist addUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">./src</directory>
+        </whitelist>
+    </filter>
+</phpunit>
