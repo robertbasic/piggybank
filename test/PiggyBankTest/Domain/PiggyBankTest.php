@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace PiggyBankTest\Application;
+namespace PiggyBankTest\Domain;
 
-use PiggyBank\Application\PiggyBank;
+use PiggyBank\Domain\PiggyBank;
 
 class PiggyBankTest extends \PHPUnit_Framework_TestCase
 {

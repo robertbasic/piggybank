@@ -2,9 +2,7 @@
 
 declare(strict_types=1);
 
-namespace PiggyBank\Application;
-
-use PiggyBank\Domain\DepositAmount;
+namespace PiggyBank\Domain;
 
 class PiggyBank
 {
