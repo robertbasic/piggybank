@@ -25,7 +25,7 @@ class DepositAmount
             $this->totalAmount = new Money(0);
         }
 
-        $this->totalAmount->add($money);
+        $this->totalAmount = $this->totalAmount->add($money);
     }
 
     public static function fromString(string $amount) : DepositAmount
