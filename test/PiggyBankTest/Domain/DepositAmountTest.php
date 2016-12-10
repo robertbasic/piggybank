@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace PiggyBankTest\Domain;
 
 use PiggyBank\Domain\DepositAmount;
+use PiggyBank\Domain\Money;
 
 class DepositAmountTest extends \PHPUnit_Framework_TestCase
 {
@@ -14,10 +15,11 @@ class DepositAmountTest extends \PHPUnit_Framework_TestCase
 
         $depositAmount = DepositAmount::fromString($amount);
 
-        $result = $depositAmount->getTotalAmount();
+        $result = $depositAmount->getAmount();
 
         $expected = 100.0;
 
-        self::assertSame($expected, $result);
+        self::assertInstanceOf(Money::class, $result);
+        self::assertSame($expected, $result->amount());
     }
 }

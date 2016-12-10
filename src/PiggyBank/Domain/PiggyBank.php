@@ -6,15 +6,25 @@ namespace PiggyBank\Domain;
 
 class PiggyBank
 {
-    private $deposit;
+    /**
+     * @var PiggyBank\Domain\Money
+     */
+    private $totalAmount;
+
+    public function __construct()
+    {
+        $this->totalAmount = new Money(0);
+    }
 
     public function deposit(string $amount)
     {
-        $this->deposit = DepositAmount::fromString($amount);
+        $deposit = DepositAmount::fromString($amount);
+
+        $this->totalAmount = $this->totalAmount->add($deposit->getAmount());
     }
 
     public function getTotalDeposit() : float
     {
-        return $this->deposit->getTotalAmount();
+        return $this->totalAmount->amount();
     }
 }

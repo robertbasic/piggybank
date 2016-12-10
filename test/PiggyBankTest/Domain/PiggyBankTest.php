@@ -14,12 +14,16 @@ class PiggyBankTest extends \PHPUnit_Framework_TestCase
 
         $piggyBank = new PiggyBank();
 
+        $resultStartAmount = $piggyBank->getTotalDeposit();
+
         $piggyBank->deposit($amount);
 
         $result = $piggyBank->getTotalDeposit();
 
+        $expectedStartAmount = 0.0;
         $expected = 100.0;
 
+        self::assertSame($expectedStartAmount, $resultStartAmount);
         self::assertSame($expected, $result);
     }
 

@@ -11,21 +11,9 @@ class DepositAmount
      */
     private $money;
 
-    /**
-     * @var PiggyBank\Domain\Money
-     */
-    private $totalAmount;
-
     private function __construct(Money $money)
     {
         $this->money = $money;
-
-        if (!$this->totalAmount) {
-            // @todo is there a better way than to have a things like zero money?
-            $this->totalAmount = new Money(0);
-        }
-
-        $this->totalAmount = $this->totalAmount->add($money);
     }
 
     public static function fromString(string $amount) : DepositAmount
@@ -35,8 +23,8 @@ class DepositAmount
         return new self($money);
     }
 
-    public function getTotalAmount() : float
+    public function getAmount() : Money
     {
-        return $this->totalAmount->amount();
+        return $this->money;
     }
 }
