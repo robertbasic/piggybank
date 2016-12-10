@@ -1,0 +1,8 @@
+<?php
+
+return [
+    'db' => [
+        'driver' => 'Pdo',
+        'dsn' => 'pgsql:host=localhost;port=5432;dbname=database;user=username;password=password',
+    ]
+];
