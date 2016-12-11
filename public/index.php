@@ -41,7 +41,7 @@ $whoops->writeToOutput(false);
 $whoops->allowQuit(false);
 $whoops->pushHandler($handler);
 
-$errorHandler = new WhoopsErrorHandler($whoops, $handler, $template, 'error::404');
+$errorHandler = new WhoopsErrorHandler($whoops, $handler, $template, 'error::404', 'error::error');
 
 $app = new Application(
     $router,
