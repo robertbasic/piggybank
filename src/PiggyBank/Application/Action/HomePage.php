@@ -12,17 +12,19 @@ use Psr\Http\Message\ResponseInterface;
 
 class HomePage
 {
+    private $router;
+
+    private $template;
+
     public function __construct(RouterInterface $router, TemplateRendererInterface $template)
     {
         $this->router = $router;
         $this->template = $template;
     }
 
-    public function __invoke(ServerRequestInterface $request, ResponseInterface $response, $next)
+    public function __invoke(ServerRequestInterface $request, ResponseInterface $response, $next) : HtmlResponse
     {
-        $variables = [
-            'name' => 'Robert',
-        ];
+        $variables = [];
 
         $template = $this->template->render('piggybank::home-page', $variables);
 

@@ -28,7 +28,7 @@ class Deposit
         $this->repository = $repository;
     }
 
-    public function __invoke(ServerRequestInterface $request, ResponseInterface $response, $next)
+    public function __invoke(ServerRequestInterface $request, ResponseInterface $response, $next) : ResponseInterface
     {
         $amount = $request->getParsedBody()['amount'];
 

@@ -23,7 +23,7 @@ class Money
         return $this->cent;
     }
 
-    public function add(Money $money) : Money
+    public function add(Money $money) : self
     {
         // @todo refactor so it can work with $this->cents()
         // need to use named constructors for that

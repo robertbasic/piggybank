@@ -16,7 +16,7 @@ class DepositAmount
         $this->money = $money;
     }
 
-    public static function fromString(string $amount) : DepositAmount
+    public static function fromString(string $amount) : self
     {
         $money = new Money((float) $amount);
 
