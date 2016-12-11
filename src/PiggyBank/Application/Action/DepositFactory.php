@@ -6,15 +6,18 @@ namespace PiggyBank\Application\Action;
 
 use Interop\Container\ContainerInterface;
 
+use PiggyBank\Infrastructure\Repository\PiggyBank;
+
 class DepositFactory
 {
     public function __invoke(ContainerInterface $container)
     {
-
         $router = $container->get('router');
         $template = $container->get('template');
 
-        return new Deposit($router, $template);
+        $repository = $container->get(PiggyBank::class);
+
+        return new Deposit($router, $template, $repository);
     }
 }
 
