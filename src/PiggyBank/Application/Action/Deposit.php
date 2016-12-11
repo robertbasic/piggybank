@@ -11,13 +11,21 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
 use PiggyBank\Domain\PiggyBank;
+use PiggyBank\Infrastructure\Repository\PiggyBank as PiggyBankRepository;
 
 class Deposit
 {
-    public function __construct(RouterInterface $router, TemplateRendererInterface $template)
+    private $router;
+
+    private $template;
+
+    private $repository;
+
+    public function __construct(RouterInterface $router, TemplateRendererInterface $template, PiggyBankRepository $repository)
     {
         $this->router = $router;
         $this->template = $template;
+        $this->repository = $repository;
     }
 
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, $next)
@@ -27,6 +35,8 @@ class Deposit
         $piggyBank = new PiggyBank();
 
         $piggyBank->deposit($amount);
+
+        $this->repository->save();
 
         return $response->withAddedHeader('Location', '/');
     }
