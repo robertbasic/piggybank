@@ -30,9 +30,6 @@ $container->setService('config', $config);
 $router = $container->get('router');
 
 $template = $container->get('template');
-/*
-$errorHandler = new TemplatedErrorHandler($template, 'error::404', 'error::error');
-*/
 
 $handler = new PrettyPageHandler();
 
