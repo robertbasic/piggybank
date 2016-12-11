@@ -15,6 +15,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
 use PiggyBank\Application\Action\HomePage;
+use PiggyBank\Application\Action\Deposit;
 
 chdir(dirname(__DIR__));
 require 'vendor/autoload.php';
@@ -29,9 +30,6 @@ $container->setService('config', $config);
 $router = $container->get('router');
 
 $template = $container->get('template');
-/*
-$errorHandler = new TemplatedErrorHandler($template, 'error::404', 'error::error');
-*/
 
 $handler = new PrettyPageHandler();
 
@@ -40,7 +38,7 @@ $whoops->writeToOutput(false);
 $whoops->allowQuit(false);
 $whoops->pushHandler($handler);
 
-$errorHandler = new WhoopsErrorHandler($whoops, $handler, $template, 'error::404');
+$errorHandler = new WhoopsErrorHandler($whoops, $handler, $template, 'error::404', 'error::error');
 
 $app = new Application(
     $router,
@@ -52,7 +50,7 @@ $app->pipeRoutingMiddleware();
 $app->pipeDispatchMiddleware();
 
 $app->get('/', HomePage::class);
-//$app->post('/ping', Ping::class);
+$app->post('/deposit', Deposit::class);
 
 $whoops->register();
 $app->run();
