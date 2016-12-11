@@ -8,9 +8,8 @@ use Interop\Container\ContainerInterface;
 
 class HomePageFactory
 {
-    public function __invoke(ContainerInterface $container)
+    public function __invoke(ContainerInterface $container) : HomePage
     {
-
         $router = $container->get('router');
         $template = $container->get('template');
 

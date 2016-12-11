@@ -8,7 +8,7 @@ use Interop\Container\ContainerInterface;
 
 class PiggyBankFactory
 {
-    public function __invoke(ContainerInterface $container)
+    public function __invoke(ContainerInterface $container) : PiggyBank
     {
         $adapter = $container->get('DatabaseAdapter');
 
