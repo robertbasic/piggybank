@@ -36,7 +36,7 @@ class Deposit
 
         $piggyBank->deposit($amount);
 
-        $this->repository->save();
+        $this->repository->save($piggyBank->getTotalDeposit());
 
         return $response->withAddedHeader('Location', '/');
     }
