@@ -14,10 +14,10 @@ class PiggyBank
 
     const TABLE_PIGGYBANK = 'piggybank';
 
-    public function __construct(Adapter $adapter)
+    public function __construct(Sql $sql, Adapter $adapter)
     {
         $this->adapter = $adapter;
-        $this->sql = new Sql($this->adapter);
+        $this->sql = $sql;
     }
 
     public function save(float $currentDeposit) : bool

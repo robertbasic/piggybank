@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace PiggyBank\Infrastructure\Repository;
 
 use Interop\Container\ContainerInterface;
+use Zend\Db\Sql\Sql;
 
 class PiggyBankFactory
 {
@@ -12,6 +13,8 @@ class PiggyBankFactory
     {
         $adapter = $container->get('DatabaseAdapter');
 
-        return new PiggyBank($adapter);
+        $sql = new Sql($adapter);
+
+        return new PiggyBank($sql, $adapter);
     }
 }
