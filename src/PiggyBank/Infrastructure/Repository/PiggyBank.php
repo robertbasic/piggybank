@@ -38,7 +38,7 @@ class PiggyBank
 
         try {
             $result = $statement->execute();
-            return true;
+            return $result->count() === 1;
         } catch (\Exception $e) {
             return false;
         }
