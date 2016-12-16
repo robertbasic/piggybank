@@ -4,15 +4,16 @@ declare(strict_types=1);
 
 namespace PiggyBankTest\Infrastructure\Repository;
 
+use Mockery as m;
+use Mockery\Adapter\Phpunit\MockeryTestCase;
 use PiggyBank\Infrastructure\Repository\PiggyBank;
 use Zend\Db\Adapter\Adapter;
 use Zend\Db\Adapter\Driver\Pdo\Result;
 use Zend\Db\Adapter\Driver\Pdo\Statement;
 use Zend\Db\Sql\Insert;
 use Zend\Db\Sql\Sql;
-use \Mockery as m;
 
-class PiggyBankTest extends \PHPUnit_Framework_TestCase
+class PiggyBankTest extends MockeryTestCase
 {
     protected $repository;
 
