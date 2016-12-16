@@ -81,4 +81,46 @@ class PiggyBankTest extends MockeryTestCase
 
         $this->assertTrue($result);
     }
+
+    public function testSaveReturnsFalseForAnException()
+    {
+        $currentDeposit = 4.3;
+
+        $this->sqlMock->shouldReceive('insert')
+            ->once()
+            ->withNoArgs()
+            ->andReturn($this->insertMock);
+
+        $this->insertMock->shouldReceive('into')
+            ->once()
+            ->with('piggybank')
+            ->andReturnSelf();
+
+        $this->insertMock->shouldReceive('columns')
+            ->once()
+            ->with(['current_amount'])
+            ->andReturnSelf();
+
+        $this->insertMock->shouldReceive('values')
+            ->once()
+            ->with([$currentDeposit])
+            ->andReturnSelf();
+
+        $this->sqlMock->shouldReceive('prepareStatementForSqlObject')
+            ->once()
+            ->with($this->insertMock)
+            ->andReturn($this->statementMock);
+
+        $this->statementMock->shouldReceive('execute')
+            ->once()
+            ->withNoArgs()
+            ->andThrow('Exception');
+
+        $this->resultMock->shouldReceive('count')
+            ->never();
+
+        $result = $this->repository->save($currentDeposit);
+
+        $this->assertFalse($result);
+    }
 }
