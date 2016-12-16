@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace PiggyBank\Application\Action;
 
 use Interop\Container\ContainerInterface;
-
 use PiggyBank\Infrastructure\Repository\PiggyBank;
 
 class DepositFactory
