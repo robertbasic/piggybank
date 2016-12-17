@@ -1,2 +1,3 @@
 vendor
+test/code-coverage
 config/database.php
