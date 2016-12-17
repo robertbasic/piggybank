@@ -18,6 +18,8 @@ class Deposit
 
     public function deposit(string $amount) : bool
     {
+        $currentAmount = $this->repository->getCurrentAmount();
+
         $piggyBank = new PiggyBank();
 
         $piggyBank->deposit($amount);
