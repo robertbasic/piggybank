@@ -26,9 +26,14 @@ class DepositTest extends MockeryTestCase
     {
         $amount = '2.43';
 
+        $this->repositoryMock->shouldReceive('getCurrentAmount')
+            ->once()
+            ->withNoArgs()
+            ->andReturn(10.46);
+
         $this->repositoryMock->shouldReceive('save')
             ->once()
-            ->with(2.43)
+            ->with(12.89)
             ->andReturn(true);
 
         $result = $this->service->deposit($amount);

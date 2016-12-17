@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace PiggyBankTest\Infrastructure\Repository;
 
 use Doctrine\DBAL\Driver\Connection;
+use Doctrine\DBAL\Driver\Statement;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Mockery as m;
 use Mockery\Adapter\Phpunit\MockeryTestCase;
@@ -20,6 +21,8 @@ class PiggyBankTest extends MockeryTestCase
 
     public function setup()
     {
+        $this->statementMock = m::mock('Doctrine\DBAL\Driver\Statement');
+
         $this->queryBuilderMock = m::mock('Doctrine\DBAL\Query\QueryBuilder');
 
         $this->connectionMock = m::mock('Doctrine\DBAL\Driver\Connection');
@@ -29,6 +32,84 @@ class PiggyBankTest extends MockeryTestCase
             ->andReturn($this->queryBuilderMock);
 
         $this->repository = new PiggyBank($this->connectionMock);
+    }
+
+    public function testGettingCurrentAmount()
+    {
+        $this->queryBuilderMock->shouldReceive('select')
+            ->once()
+            ->with('current_amount')
+            ->andReturnSelf();
+
+        $this->queryBuilderMock->shouldReceive('from')
+            ->once()
+            ->with('piggybank')
+            ->andReturnSelf();
+
+        $this->queryBuilderMock->shouldReceive('orderBy')
+            ->once()
+            ->with('id', 'DESC')
+            ->andReturnSelf();
+
+        $this->queryBuilderMock->shouldReceive('setMaxResults')
+            ->once()
+            ->with(1)
+            ->andReturnSelf();
+
+        $this->queryBuilderMock->shouldReceive('execute')
+            ->once()
+            ->withNoArgs()
+            ->andReturn($this->statementMock);
+
+        $this->statementMock->shouldReceive('fetch')
+            ->once()
+            ->withNoArgs()
+            ->andReturn(['current_amount' => '2.3']);
+
+        $result = $this->repository->getCurrentAmount();
+
+        $expected = 2.3;
+
+        self::assertSame($expected, $result);
+    }
+
+    public function testGettingCurrentAmountReturnsZeroWhenNoCurrentAmount()
+    {
+        $this->queryBuilderMock->shouldReceive('select')
+            ->once()
+            ->with('current_amount')
+            ->andReturnSelf();
+
+        $this->queryBuilderMock->shouldReceive('from')
+            ->once()
+            ->with('piggybank')
+            ->andReturnSelf();
+
+        $this->queryBuilderMock->shouldReceive('orderBy')
+            ->once()
+            ->with('id', 'DESC')
+            ->andReturnSelf();
+
+        $this->queryBuilderMock->shouldReceive('setMaxResults')
+            ->once()
+            ->with(1)
+            ->andReturnSelf();
+
+        $this->queryBuilderMock->shouldReceive('execute')
+            ->once()
+            ->withNoArgs()
+            ->andReturn($this->statementMock);
+
+        $this->statementMock->shouldReceive('fetch')
+            ->once()
+            ->withNoArgs()
+            ->andReturn(false);
+
+        $result = $this->repository->getCurrentAmount();
+
+        $expected = 0.0;
+
+        self::assertSame($expected, $result);
     }
 
     public function testSavesCurrentDepositToTheDatabase()
