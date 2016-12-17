@@ -57,7 +57,7 @@ class PiggyBankTest extends MockeryTestCase
 
         $result = $this->repository->save($currentDeposit);
 
-        $this->assertTrue($result);
+        self::assertTrue($result);
     }
 
     public function testSaveReturnsFalseForAnException()
@@ -86,6 +86,6 @@ class PiggyBankTest extends MockeryTestCase
 
         $result = $this->repository->save($currentDeposit);
 
-        $this->assertFalse($result);
+        self::assertFalse($result);
     }
 }
