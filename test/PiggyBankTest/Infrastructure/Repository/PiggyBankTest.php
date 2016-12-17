@@ -34,7 +34,7 @@ class PiggyBankTest extends MockeryTestCase
         $this->repository = new PiggyBank($this->connectionMock);
     }
 
-    public function testGettingCurrentAmount()
+    public function test_getting_current_amount()
     {
         $this->queryBuilderMock->shouldReceive('select')
             ->once()
@@ -73,7 +73,7 @@ class PiggyBankTest extends MockeryTestCase
         self::assertSame($expected, $result);
     }
 
-    public function testGettingCurrentAmountReturnsZeroWhenNoCurrentAmount()
+    public function test_getting_current_amount_returns_zero_when_no_current_amount()
     {
         $this->queryBuilderMock->shouldReceive('select')
             ->once()
@@ -112,7 +112,7 @@ class PiggyBankTest extends MockeryTestCase
         self::assertSame($expected, $result);
     }
 
-    public function testSavesCurrentDepositToTheDatabase()
+    public function test_saves_current_deposit_to_the_database()
     {
         $currentDeposit = 4.3;
 
@@ -141,7 +141,7 @@ class PiggyBankTest extends MockeryTestCase
         self::assertTrue($result);
     }
 
-    public function testSaveReturnsFalseForAnException()
+    public function test_save_returns_false_when_nothing_was_inserted()
     {
         $currentDeposit = 4.3;
 
