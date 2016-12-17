@@ -34,6 +34,8 @@ class Deposit
         try {
             $this->deposit->deposit($amount);
         } catch (InvalidArgumentException $e) {
+            $flash = $request->getAttribute('flash');
+            $flash->addMessage('error', $e->getMessage());
         }
 
         return $response->withAddedHeader('Location', '/');
