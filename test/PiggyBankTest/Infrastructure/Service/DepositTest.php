@@ -22,7 +22,7 @@ class DepositTest extends MockeryTestCase
         $this->service = new Deposit($this->repositoryMock);
     }
 
-    public function testDepositsAmount()
+    public function test_deposits_amount()
     {
         $amount = '2.43';
 
