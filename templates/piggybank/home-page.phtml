@@ -1,5 +1,9 @@
 <?php $this->headTitle('Welcome'); ?>
 
+Current amount: <?php echo $this->currentAmount; ?>
+
+<br>
+
 <form method="post" action="/deposit">
     <input type="text" name="amount" />
     <input type="submit" value="Deposit" />

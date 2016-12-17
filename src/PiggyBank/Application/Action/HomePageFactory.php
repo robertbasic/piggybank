@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace PiggyBank\Application\Action;
 
 use Interop\Container\ContainerInterface;
+use PiggyBank\Infrastructure\Repository\PiggyBank;
 
 class HomePageFactory
 {
@@ -13,6 +14,8 @@ class HomePageFactory
         $router = $container->get('router');
         $template = $container->get('template');
 
-        return new HomePage($router, $template);
+        $repository = $container->get(PiggyBank::class);
+
+        return new HomePage($router, $template, $repository);
     }
 }
