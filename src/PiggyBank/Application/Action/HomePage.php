@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace PiggyBank\Application\Action;
 
+use PiggyBank\Infrastructure\Repository\PiggyBank;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\HtmlResponse;
@@ -16,15 +17,22 @@ class HomePage
 
     private $template;
 
-    public function __construct(RouterInterface $router, TemplateRendererInterface $template)
+    private $repository;
+
+    public function __construct(RouterInterface $router, TemplateRendererInterface $template, PiggyBank $repository)
     {
         $this->router = $router;
         $this->template = $template;
+        $this->repository = $repository;
     }
 
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, $next) : HtmlResponse
     {
-        $variables = [];
+        $currentAmount = $this->repository->getCurrentAmount();
+
+        $variables = [
+            'currentAmount' => $currentAmount
+        ];
 
         $template = $this->template->render('piggybank::home-page', $variables);
 
