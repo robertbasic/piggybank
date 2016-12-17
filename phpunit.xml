@@ -11,9 +11,18 @@
         <directory>./test/PiggyBankTest</directory>
     </testsuite>
 
+    <logging>
+        <log type="coverage-html" target="./test/code-coverage" charset="UTF-8"
+            yui="true" highlight="true" lowUpperBound="50" highLowerBound="80" />
+    </logging>
+
     <filter>
         <whitelist addUncoveredFilesFromWhitelist="true">
             <directory suffix=".php">./src</directory>
+            <exclude>
+                <!-- Exclude all the factories from code coverage -->
+                <directory suffix="Factory.php">./src</directory>
+            </exclude>
         </whitelist>
     </filter>
 </phpunit>
