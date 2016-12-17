@@ -20,7 +20,7 @@ class Deposit
     {
         $currentAmount = $this->repository->getCurrentAmount();
 
-        $piggyBank = new PiggyBank();
+        $piggyBank = new PiggyBank($currentAmount);
 
         $piggyBank->deposit($amount);
 

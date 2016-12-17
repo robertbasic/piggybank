@@ -11,9 +11,9 @@ class PiggyBank
      */
     private $totalAmount;
 
-    public function __construct()
+    public function __construct(float $currentAmount)
     {
-        $this->totalAmount = new Money(0);
+        $this->totalAmount = new Money($currentAmount);
     }
 
     public function deposit(string $amount)

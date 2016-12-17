@@ -33,7 +33,7 @@ class DepositTest extends MockeryTestCase
 
         $this->repositoryMock->shouldReceive('save')
             ->once()
-            ->with(2.43)
+            ->with(12.89)
             ->andReturn(true);
 
         $result = $this->service->deposit($amount);
