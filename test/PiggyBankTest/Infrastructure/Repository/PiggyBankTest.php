@@ -4,75 +4,53 @@ declare(strict_types=1);
 
 namespace PiggyBankTest\Infrastructure\Repository;
 
+use Doctrine\DBAL\Driver\Connection;
+use Doctrine\DBAL\Query\QueryBuilder;
 use Mockery as m;
 use Mockery\Adapter\Phpunit\MockeryTestCase;
 use PiggyBank\Infrastructure\Repository\PiggyBank;
-use Zend\Db\Adapter\Adapter;
-use Zend\Db\Adapter\Driver\Pdo\Result;
-use Zend\Db\Adapter\Driver\Pdo\Statement;
-use Zend\Db\Sql\Insert;
-use Zend\Db\Sql\Sql;
 
 class PiggyBankTest extends MockeryTestCase
 {
     protected $repository;
 
-    protected $sqlMock;
+    protected $queryBuilderMock;
 
-    protected $adapterMock;
-
-    protected $insertMock;
-
-    protected $statementMock;
-
-    protected $resultMock;
+    protected $connectionMock;
 
     public function setup()
     {
-        $this->sqlMock = m::mock('Zend\Db\Sql\Sql');
-        $this->adapterMock = m::mock('Zend\Db\Adapter\Adapter');
-        $this->insertMock = m::mock('Zend\Db\Sql\Insert');
-        $this->statementMock = m::mock('Zend\Db\Adapter\Driver\Pdo\Statement');
-        $this->resultMock = m::mock('Zend\Db\Adapter\Driver\Pdo\Result');
+        $this->queryBuilderMock = m::mock('Doctrine\DBAL\Query\QueryBuilder');
 
-        $this->repository = new PiggyBank($this->sqlMock, $this->adapterMock);
+        $this->connectionMock = m::mock('Doctrine\DBAL\Driver\Connection');
+        $this->connectionMock->shouldReceive('createQueryBuilder')
+            ->once()
+            ->withNoArgs()
+            ->andReturn($this->queryBuilderMock);
+
+        $this->repository = new PiggyBank($this->connectionMock);
     }
 
     public function testSavesCurrentDepositToTheDatabase()
     {
         $currentDeposit = 4.3;
 
-        $this->sqlMock->shouldReceive('insert')
-            ->once()
-            ->withNoArgs()
-            ->andReturn($this->insertMock);
-
-        $this->insertMock->shouldReceive('into')
+        $this->queryBuilderMock->shouldReceive('insert')
             ->once()
             ->with('piggybank')
             ->andReturnSelf();
 
-        $this->insertMock->shouldReceive('columns')
+        $this->queryBuilderMock->shouldReceive('values')
             ->once()
-            ->with(['current_amount'])
+            ->with(['current_amount' => '?'])
             ->andReturnSelf();
 
-        $this->insertMock->shouldReceive('values')
+        $this->queryBuilderMock->shouldReceive('setParameter')
             ->once()
-            ->with([$currentDeposit])
+            ->with(0, $currentDeposit)
             ->andReturnSelf();
 
-        $this->sqlMock->shouldReceive('prepareStatementForSqlObject')
-            ->once()
-            ->with($this->insertMock)
-            ->andReturn($this->statementMock);
-
-        $this->statementMock->shouldReceive('execute')
-            ->once()
-            ->withNoArgs()
-            ->andReturn($this->resultMock);
-
-        $this->resultMock->shouldReceive('count')
+        $this->queryBuilderMock->shouldReceive('execute')
             ->once()
             ->withNoArgs()
             ->andReturn(1);
@@ -86,38 +64,25 @@ class PiggyBankTest extends MockeryTestCase
     {
         $currentDeposit = 4.3;
 
-        $this->sqlMock->shouldReceive('insert')
-            ->once()
-            ->withNoArgs()
-            ->andReturn($this->insertMock);
-
-        $this->insertMock->shouldReceive('into')
+        $this->queryBuilderMock->shouldReceive('insert')
             ->once()
             ->with('piggybank')
             ->andReturnSelf();
 
-        $this->insertMock->shouldReceive('columns')
+        $this->queryBuilderMock->shouldReceive('values')
             ->once()
-            ->with(['current_amount'])
+            ->with(['current_amount' => '?'])
             ->andReturnSelf();
 
-        $this->insertMock->shouldReceive('values')
+        $this->queryBuilderMock->shouldReceive('setParameter')
             ->once()
-            ->with([$currentDeposit])
+            ->with(0, $currentDeposit)
             ->andReturnSelf();
 
-        $this->sqlMock->shouldReceive('prepareStatementForSqlObject')
-            ->once()
-            ->with($this->insertMock)
-            ->andReturn($this->statementMock);
-
-        $this->statementMock->shouldReceive('execute')
+        $this->queryBuilderMock->shouldReceive('execute')
             ->once()
             ->withNoArgs()
-            ->andThrow('Exception');
-
-        $this->resultMock->shouldReceive('count')
-            ->never();
+            ->andReturn(0);
 
         $result = $this->repository->save($currentDeposit);
 

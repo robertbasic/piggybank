@@ -4,43 +4,35 @@ declare(strict_types=1);
 
 namespace PiggyBank\Infrastructure\Repository;
 
-use Zend\Db\Adapter\Adapter;
-use Zend\Db\Sql\Sql;
+use Doctrine\DBAL\Driver\Connection;
 
 class PiggyBank
 {
-    private $adapter;
-    private $sql;
+    private $connection;
+
+    private $queryBuilder;
 
     const TABLE_PIGGYBANK = 'piggybank';
 
-    public function __construct(Sql $sql, Adapter $adapter)
+    public function __construct(Connection $connection)
     {
-        $this->adapter = $adapter;
-        $this->sql = $sql;
+        $this->connection = $connection;
+
+        $this->queryBuilder = $this->connection->createQueryBuilder();
     }
 
     public function save(float $currentDeposit) : bool
     {
-        $insert = $this->sql->insert();
+        $result = $this->queryBuilder
+            ->insert(self::TABLE_PIGGYBANK)
+            ->values(
+                [
+                    'current_amount' => '?'
+                ]
+            )
+            ->setParameter(0, $currentDeposit)
+            ->execute();
 
-        $insert = $insert->into(self::TABLE_PIGGYBANK);
-
-        $insert = $insert->columns([
-            'current_amount'
-        ]);
-
-        $insert = $insert->values([
-            $currentDeposit
-        ]);
-
-        $statement = $this->sql->prepareStatementForSqlObject($insert);
-
-        try {
-            $result = $statement->execute();
-            return $result->count() === 1;
-        } catch (\Exception $e) {
-            return false;
-        }
+        return $result === 1;
     }
 }
