@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace PiggyBank\Domain;
 
+use InvalidArgumentException;
+use PiggyBank\Domain\Exception\InvalidDepositAmount;
+
 class PiggyBank
 {
     /**
@@ -18,7 +21,11 @@ class PiggyBank
 
     public function deposit(string $amount)
     {
-        $deposit = DepositAmount::fromString($amount);
+        try {
+            $deposit = DepositAmount::fromString($amount);
+        } catch (InvalidDepositAmount $e) {
+            throw new InvalidArgumentException($e->getMessage());
+        }
 
         $this->totalAmount = $this->totalAmount->add($deposit->getAmount());
     }

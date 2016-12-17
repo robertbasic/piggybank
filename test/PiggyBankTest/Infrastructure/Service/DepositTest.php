@@ -40,4 +40,21 @@ class DepositTest extends MockeryTestCase
 
         self::assertTrue($result);
     }
+
+    public function test_throws_exception_for_zero_amount_to_deposit()
+    {
+        self::setExpectedException('\InvalidArgumentException');
+
+        $amount = '0';
+
+        $this->repositoryMock->shouldReceive('getCurrentAmount')
+            ->once()
+            ->withNoArgs()
+            ->andReturn(10.46);
+
+        $this->repositoryMock->shouldReceive('save')
+            ->never();
+
+        $this->service->deposit($amount);
+    }
 }

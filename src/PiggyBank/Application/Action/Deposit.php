@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace PiggyBank\Application\Action;
 
+use InvalidArgumentException;
 use PiggyBank\Infrastructure\Service\Deposit as DepositService;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -30,7 +31,10 @@ class Deposit
     {
         $amount = $request->getParsedBody()['amount'];
 
-        $this->deposit->deposit($amount);
+        try {
+            $this->deposit->deposit($amount);
+        } catch (InvalidArgumentException $e) {
+        }
 
         return $response->withAddedHeader('Location', '/');
     }

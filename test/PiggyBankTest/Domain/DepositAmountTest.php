@@ -22,4 +22,13 @@ class DepositAmountTest extends \PHPUnit_Framework_TestCase
         self::assertInstanceOf(Money::class, $result);
         self::assertSame($expected, $result->amount());
     }
+
+    public function test_throws_an_invalid_deposit_amount_exception_if_amount_to_deposit_is_zero()
+    {
+        self::setExpectedException('PiggyBank\Domain\Exception\InvalidDepositAmount');
+
+        $amount = '0';
+
+        DepositAmount::fromString($amount);
+    }
 }

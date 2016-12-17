@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace PiggyBank\Domain;
 
+use PiggyBank\Domain\Exception\InvalidDepositAmount;
+
 class DepositAmount
 {
     /**
@@ -19,6 +21,10 @@ class DepositAmount
     public static function fromString(string $amount) : self
     {
         $money = new Money((float) $amount);
+
+        if ($money->amount() == 0) {
+            throw new InvalidDepositAmount("Deposit amount can't be zero!");
+        }
 
         return new self($money);
     }
