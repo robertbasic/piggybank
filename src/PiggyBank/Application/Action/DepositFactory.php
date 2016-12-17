@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace PiggyBank\Application\Action;
 
 use Interop\Container\ContainerInterface;
-use PiggyBank\Infrastructure\Repository\PiggyBank;
+use PiggyBank\Infrastructure\Service\Deposit as DepositService;
 
 class DepositFactory
 {
@@ -14,9 +14,9 @@ class DepositFactory
         $router = $container->get('router');
         $template = $container->get('template');
 
-        $repository = $container->get(PiggyBank::class);
+        $depositService = $container->get(DepositService::class);
 
-        return new Deposit($router, $template, $repository);
+        return new Deposit($router, $template, $depositService);
     }
 }
 
