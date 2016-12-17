@@ -2,12 +2,11 @@
 
 declare(strict_types=1);
 
-use Zend\Expressive\Router\FastRouteRouter;
-
-use PiggyBank\Application\Action\HomePage;
-use PiggyBank\Application\Action\HomePageFactory;
 use PiggyBank\Application\Action\Deposit;
 use PiggyBank\Application\Action\DepositFactory;
+use PiggyBank\Application\Action\HomePage;
+use PiggyBank\Application\Action\HomePageFactory;
+use Zend\Expressive\Router\FastRouteRouter;
 
 return [
     'dependencies' => [

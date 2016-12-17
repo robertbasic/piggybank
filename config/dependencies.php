@@ -2,9 +2,8 @@
 
 declare(strict_types=1);
 
-use Zend\Db\Adapter\AdapterServiceFactory;
-
 use PiggyBank\Infrastructure\Repository;
+use Zend\Db\Adapter\AdapterServiceFactory;
 
 return [
     'dependencies' => [

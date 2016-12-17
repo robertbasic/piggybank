@@ -2,20 +2,17 @@
 
 declare(strict_types=1);
 
-use Zend\Expressive\Application;
-use Zend\ServiceManager\Config;
-use Zend\ServiceManager\ServiceManager;
-
-use Zend\Expressive\TemplatedErrorHandler;
-use Zend\Expressive\WhoopsErrorHandler;
+use PiggyBank\Application\Action\Deposit;
+use PiggyBank\Application\Action\HomePage;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use Whoops\Handler\PrettyPageHandler;
 use Whoops\Run as Whoops;
-
-use Psr\Http\Message\ServerRequestInterface;
-use Psr\Http\Message\ResponseInterface;
-
-use PiggyBank\Application\Action\HomePage;
-use PiggyBank\Application\Action\Deposit;
+use Zend\Expressive\Application;
+use Zend\Expressive\TemplatedErrorHandler;
+use Zend\Expressive\WhoopsErrorHandler;
+use Zend\ServiceManager\Config;
+use Zend\ServiceManager\ServiceManager;
 
 chdir(dirname(__DIR__));
 require 'vendor/autoload.php';
