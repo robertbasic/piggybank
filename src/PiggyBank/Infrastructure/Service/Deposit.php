@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace PiggyBank\Infrastructure\Service;
 
+use InvalidArgumentException;
+use PiggyBank\Domain\Exception\InvalidDepositAmount;
 use PiggyBank\Domain\PiggyBank;
 use PiggyBank\Infrastructure\Repository\PiggyBank as PiggyBankRepository;
 
@@ -22,7 +24,11 @@ class Deposit
 
         $piggyBank = new PiggyBank($currentAmount);
 
-        $piggyBank->deposit($amount);
+        try {
+            $piggyBank->deposit($amount);
+        } catch (InvalidArgumentException $e) {
+            throw new InvalidArgumentException($e->getMessage());
+        }
 
         return $this->repository->save($piggyBank->getTotalDeposit());
     }
