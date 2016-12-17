@@ -62,4 +62,15 @@ class PiggyBankTest extends \PHPUnit_Framework_TestCase
         self::assertSame($expectedStartAmount, $resultStartAmount);
         self::assertSame($expected, $result);
     }
+
+    public function test_throws_exception_for_zero_amount_to_deposit()
+    {
+        self::setExpectedException('\InvalidArgumentException');
+
+        $amount = '0';
+
+        $piggyBank = new PiggyBank(0);
+
+        $piggyBank->deposit($amount);
+    }
 }
