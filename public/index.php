@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use PiggyBank\Application\Action\Deposit;
 use PiggyBank\Application\Action\HomePage;
+use PiggyBank\Application\Middleware\SlimFlashFactory;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Whoops\Handler\PrettyPageHandler;
@@ -44,6 +45,7 @@ $app = new Application(
 );
 
 $app->pipeRoutingMiddleware();
+$app->pipe(SlimFlashFactory::class);
 $app->pipeDispatchMiddleware();
 
 $app->get('/', HomePage::class);
