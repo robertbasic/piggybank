@@ -33,6 +33,6 @@ class DepositTest extends MockeryTestCase
 
         $result = $this->service->deposit($amount);
 
-        $this->assertTrue($result);
+        self::assertTrue($result);
     }
 }
