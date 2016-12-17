@@ -4,20 +4,17 @@ declare(strict_types=1);
 
 namespace PiggyBank\Infrastructure\Repository;
 
-use Zend\Db\Adapter\Adapter;
-use Zend\Db\Sql\Sql;
+use Doctrine\DBAL\Driver\Connection;
 
 class PiggyBank
 {
-    private $adapter;
-    private $sql;
+    private $connection;
 
     const TABLE_PIGGYBANK = 'piggybank';
 
-    public function __construct(Sql $sql, Adapter $adapter)
+    public function __construct(Connection $connection)
     {
-        $this->adapter = $adapter;
-        $this->sql = $sql;
+        $this->connection = $connection;
     }
 
     public function save(float $currentDeposit) : bool

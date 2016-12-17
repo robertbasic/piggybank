@@ -12,7 +12,7 @@ return [
         'invokables' => [
         ],
         'factories' => [
-            'DatabaseAdapter' => DatabaseConnectionFactory::class,
+            DB_CONNECTION => DatabaseConnectionFactory::class,
 
             Repository\PiggyBank::class => Repository\PiggyBankFactory::class,
         ]
