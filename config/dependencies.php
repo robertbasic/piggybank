@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 use PiggyBank\Infrastructure\Repository;
-use Zend\Db\Adapter\AdapterServiceFactory;
+use PiggyBank\Infrastructure\DatabaseConnectionFactory;
 
 return [
     'dependencies' => [
@@ -12,7 +12,7 @@ return [
         'invokables' => [
         ],
         'factories' => [
-            'DatabaseAdapter' => AdapterServiceFactory::class,
+            'DatabaseAdapter' => DatabaseConnectionFactory::class,
 
             Repository\PiggyBank::class => Repository\PiggyBankFactory::class,
         ]
