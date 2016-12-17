@@ -28,10 +28,13 @@ class HomePage
 
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, $next) : HtmlResponse
     {
+        $flash = $request->getAttribute('flash');
+
         $currentAmount = $this->repository->getCurrentAmount();
 
         $variables = [
-            'currentAmount' => $currentAmount
+            'currentAmount' => $currentAmount,
+            'messages' => $flash->getMessages()
         ];
 
         $template = $this->template->render('piggybank::home-page', $variables);
