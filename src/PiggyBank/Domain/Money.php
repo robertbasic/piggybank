@@ -6,34 +6,32 @@ namespace PiggyBank\Domain;
 
 class Money
 {
-    private $cent;
+    private $cents;
 
-    private function __construct(int $cent)
+    private function __construct(int $cents)
     {
-        $this->cent = $cent;
+        $this->cents = $cents;
     }
 
     public static function fromAmount(float $amount) : self
     {
-        $cent = (int) ($amount * 100);
+        $cents = (int) ($amount * 100);
 
-        return new self($cent);
+        return new self($cents);
     }
 
     public function amount() : float
     {
-        return $this->cent / 100;
+        return $this->cents / 100;
     }
 
     private function cents() : int
     {
-        return $this->cent;
+        return $this->cents;
     }
 
     public function add(Money $money) : self
     {
-        // @todo refactor so it can work with $this->cents()
-        // need to use named constructors for that
         return new self($this->cents() + $money->cents());
     }
 }
