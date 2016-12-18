@@ -20,7 +20,7 @@ class DepositAmount
 
     public static function fromString(string $amount) : self
     {
-        $money = new Money((float) $amount);
+        $money = Money::fromAmount((float) $amount);
 
         if ($money->amount() == 0) {
             throw new InvalidDepositAmount("Deposit amount can't be zero!");
