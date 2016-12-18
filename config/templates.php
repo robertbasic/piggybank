@@ -21,5 +21,10 @@ return [
             'layout' => ['templates/layout'],
             'error' => ['templates/error'],
         ]
+    ],
+    'view_helpers' => [
+        'invokables' => [
+            'customHelper' => 'PiggyBank\CustomHelper'
+        ]
     ]
 ];
