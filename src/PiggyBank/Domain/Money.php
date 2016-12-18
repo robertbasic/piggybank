@@ -8,9 +8,16 @@ class Money
 {
     private $cent;
 
-    public function __construct(float $amount)
+    private function __construct(int $cent)
     {
-        $this->cent = $amount * 100;
+        $this->cent = $cent;
+    }
+
+    public static function fromAmount(float $amount) : self
+    {
+        $cent = (int) ($amount * 100);
+
+        return new self($cent);
     }
 
     public function amount() : float
@@ -27,6 +34,6 @@ class Money
     {
         // @todo refactor so it can work with $this->cents()
         // need to use named constructors for that
-        return new self($this->amount() + $money->amount());
+        return new self($this->cents() + $money->cents());
     }
 }

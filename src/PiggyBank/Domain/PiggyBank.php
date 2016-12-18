@@ -16,7 +16,7 @@ class PiggyBank
 
     public function __construct(float $currentAmount)
     {
-        $this->totalAmount = new Money($currentAmount);
+        $this->totalAmount = Money::fromAmount($currentAmount);
     }
 
     public function deposit(string $amount)
