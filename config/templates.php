@@ -7,7 +7,8 @@ use Zend\Expressive\ZendView\ZendViewRendererFactory;
 return [
     'dependencies' => [
         'factories' => [
-            'template' => ZendViewRendererFactory::class
+            'template' => ZendViewRendererFactory::class,
+            Zend\View\HelperPluginManager::class => Zend\Expressive\ZendView\HelperPluginManagerFactory::class,
         ],
     ],
     'templates' => [
