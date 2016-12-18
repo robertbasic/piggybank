@@ -24,7 +24,7 @@ return [
     ],
     'view_helpers' => [
         'invokables' => [
-            'customHelper' => 'PiggyBank\CustomHelper'
+            'flashMessages' => 'PiggyBank\Application\View\FlashMessages'
         ]
     ]
 ];
