@@ -8,6 +8,11 @@ use Zend\View\Helper\AbstractHelper;
 
 class FlashMessages extends AbstractHelper
 {
+    private $classMap = [
+        'error' => 'danger',
+        'success' => 'success',
+    ];
+
     public function __invoke() : string
     {
         $flashMessages = $this->getFlashMessages();
@@ -20,7 +25,7 @@ class FlashMessages extends AbstractHelper
 
         foreach ($flashMessages as $messageType => $messages) {
             $message = $this->combineMessages($messages);
-            $html .= '<div class="' . $messageType . '">' . $message . '</div>';
+            $html .= '<div class="alert alert-' . $this->classMap[$messageType] . '">' . $message . '</div>';
         }
 
         return $html;

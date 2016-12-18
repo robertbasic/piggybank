@@ -1,5 +1,29 @@
-<?php echo $this->headTitle('PiggyBank')->setSeparator(' - ')->setAutoEscape(false) ?>
-<!--<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>-->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- Required meta tags always come first -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-<?php echo $this->flashMessages(); ?>
-<?php echo $this->content; ?>
+        <?php echo $this->headTitle('PiggyBank')->setSeparator(' - ')->setAutoEscape(false) ?>
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+        <script src="/static/js/jquery-3.1.1.min.js"></script>
+        <script src="/static/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+    <div class='container'>
+        <div class='row'>
+            <h1>PiggyBank</h1>
+        </div>
+
+        <?php echo $this->flashMessages(); ?>
+
+        <div class='row'>
+            <?php echo $this->content; ?>
+        </div>
+    </div>
+    </body>
+</html>
