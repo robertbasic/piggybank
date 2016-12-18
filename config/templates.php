@@ -7,7 +7,8 @@ use Zend\Expressive\ZendView\ZendViewRendererFactory;
 return [
     'dependencies' => [
         'factories' => [
-            'template' => ZendViewRendererFactory::class
+            'template' => ZendViewRendererFactory::class,
+            Zend\View\HelperPluginManager::class => Zend\Expressive\ZendView\HelperPluginManagerFactory::class,
         ],
     ],
     'templates' => [
@@ -19,6 +20,11 @@ return [
             'piggybank' => ['templates/piggybank'],
             'layout' => ['templates/layout'],
             'error' => ['templates/error'],
+        ]
+    ],
+    'view_helpers' => [
+        'invokables' => [
+            'flashMessages' => 'PiggyBank\Application\View\FlashMessages'
         ]
     ]
 ];
