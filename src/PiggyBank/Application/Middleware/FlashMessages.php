@@ -6,7 +6,7 @@ namespace PiggyBank\Application\Middleware;
 
 use Slim\Flash\Messages;
 
-class SlimFlashFactory
+class FlashMessages
 {
     public function __invoke($request, $response, $next)
     {
