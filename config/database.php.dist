@@ -1,8 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
+define('DB_CONNECTION', 'DB_CONNECTION');
+
 return [
     'db' => [
-        'driver' => 'Pdo',
-        'dsn' => 'pgsql:host=localhost;port=5432;dbname=database;user=username;password=password',
+        'driver' => 'pdo_pgsql',
+        'dbname' => 'piggybank',
+        'user' => 'piggybank',
+        'password' => 'piggybank',
+        'host' => 'localhost',
+        'port' => 5432,
     ]
 ];
