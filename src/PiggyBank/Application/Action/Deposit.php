@@ -34,13 +34,15 @@ class Deposit
 
         try {
             $this->deposit->deposit($amount);
+            $message = ['success', 'Amount deposited!'];
         } catch (InvalidArgumentException $e) {
-            $flash = $request->getAttribute('flash');
-            $flash->addMessage('error', $e->getMessage());
+            $message = ['error', $e->getMessage()];
         } catch (RepositoryException $e) {
-            $flash = $request->getAttribute('flash');
-            $flash->addMessage('error', $e->getMessage());
+            $message = ['error', $e->getMessage()];
         }
+
+        $flash = $request->getAttribute('flash');
+        $flash->addMessage($message[0], $message[1]);
 
         return $response->withAddedHeader('Location', '/');
     }
