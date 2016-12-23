@@ -6,6 +6,7 @@ namespace PiggyBank\Application\Action;
 
 use InvalidArgumentException;
 use PiggyBank\Infrastructure\Service\Deposit as DepositService;
+use PiggyBank\Infrastructure\Service\Exception\RepositoryException;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\HtmlResponse;
@@ -34,6 +35,9 @@ class Deposit
         try {
             $this->deposit->deposit($amount);
         } catch (InvalidArgumentException $e) {
+            $flash = $request->getAttribute('flash');
+            $flash->addMessage('error', $e->getMessage());
+        } catch (RepositoryException $e) {
             $flash = $request->getAttribute('flash');
             $flash->addMessage('error', $e->getMessage());
         }

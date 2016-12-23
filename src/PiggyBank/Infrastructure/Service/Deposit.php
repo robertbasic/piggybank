@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace PiggyBank\Infrastructure\Service;
 
+use Doctrine\DBAL\Exception\ServerException;
 use InvalidArgumentException;
 use PiggyBank\Domain\Exception\InvalidDepositAmount;
 use PiggyBank\Domain\PiggyBank;
 use PiggyBank\Infrastructure\Repository\PiggyBank as PiggyBankRepository;
+use PiggyBank\Infrastructure\Service\Exception\RepositoryException;
 
 class Deposit
 {
@@ -30,6 +32,10 @@ class Deposit
             throw new InvalidArgumentException($e->getMessage());
         }
 
-        return $this->repository->save($piggyBank->getTotalDeposit());
+        try {
+            return $this->repository->save($piggyBank->getTotalDeposit());
+        } catch (ServerException $e) {
+            throw new RepositoryException("Saving to repository failed!", $e->getCode(), $e);
+        }
     }
 }
