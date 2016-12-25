@@ -1,3 +1,5 @@
 vendor
 test/code-coverage
 config/database.php
+humbuglog.txt
+humbuglog.json
