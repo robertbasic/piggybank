@@ -15,13 +15,14 @@ class DepositFactoryTest extends MockeryTestCase
     public function test_deposit_factory_creates_deposit_service()
     {
         $repository = m::mock('PiggyBank\Infrastructure\Repository\PiggyBank');
+
         $container = m::mock('Zend\ServiceManager\ServiceManager');
         $container->shouldReceive('get')
             ->once()
             ->with(PiggyBankRepository::class)
             ->andReturn($repository);
 
-        $factory = new DepositFactory($container);
+        $factory = new DepositFactory();
 
         $service = $factory($container);
 
