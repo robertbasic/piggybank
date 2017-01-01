@@ -19,10 +19,6 @@
     <filter>
         <whitelist addUncoveredFilesFromWhitelist="true">
             <directory suffix=".php">./src</directory>
-            <exclude>
-                <!-- Exclude all the factories from code coverage -->
-                <directory suffix="Factory.php">./src</directory>
-            </exclude>
         </whitelist>
     </filter>
 </phpunit>
