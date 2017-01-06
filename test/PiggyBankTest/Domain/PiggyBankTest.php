@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace PiggyBankTest\Domain;
 
 use PiggyBank\Domain\PiggyBank;
+use PiggyBank\Domain\Exception\InvalidDepositAmount;
 
 class PiggyBankTest extends \PHPUnit_Framework_TestCase
 {
@@ -65,7 +66,7 @@ class PiggyBankTest extends \PHPUnit_Framework_TestCase
 
     public function test_throws_exception_for_zero_amount_to_deposit()
     {
-        self::setExpectedException('\InvalidArgumentException');
+        self::setExpectedException('PiggyBank\Domain\Exception\InvalidDepositAmount');
 
         $amount = '0';
 

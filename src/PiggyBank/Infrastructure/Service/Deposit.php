@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace PiggyBank\Infrastructure\Service;
 
 use Doctrine\DBAL\Exception\ServerException;
-use InvalidArgumentException;
 use PiggyBank\Domain\Exception\InvalidDepositAmount;
 use PiggyBank\Domain\PiggyBank;
 use PiggyBank\Infrastructure\Repository\PiggyBank as PiggyBankRepository;
@@ -28,8 +27,8 @@ class Deposit
 
         try {
             $piggyBank->deposit($amount);
-        } catch (InvalidArgumentException $e) {
-            throw new InvalidArgumentException($e->getMessage());
+        } catch (InvalidDepositAmount $e) {
+            throw new \InvalidArgumentException($e->getMessage());
         }
 
         try {

@@ -13,7 +13,7 @@ class Money
         $this->cents = $cents;
     }
 
-    public static function fromAmount(float $amount) : self
+    public static function fromFloat(float $amount) : self
     {
         $cents = (int) ($amount * 100);
 

@@ -12,7 +12,7 @@ class MoneyTest extends \PHPUnit_Framework_TestCase
     {
         $amount = 100.0;
 
-        $money = Money::fromAmount($amount);
+        $money = Money::fromFloat($amount);
 
         $result = $money->amount();
 
@@ -25,11 +25,11 @@ class MoneyTest extends \PHPUnit_Framework_TestCase
     {
         $amount = 100.0;
 
-        $money = Money::fromAmount($amount);
+        $money = Money::fromFloat($amount);
 
-        $otherAmount = 55.6;
+        $otherFloat = 55.6;
 
-        $otherMoney = Money::fromAmount($otherAmount);
+        $otherMoney = Money::fromFloat($otherFloat);
 
         $newMoney = $money->add($otherMoney);
 
