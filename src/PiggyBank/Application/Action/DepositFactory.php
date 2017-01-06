@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace PiggyBank\Application\Action;
 
 use Interop\Container\ContainerInterface;
-use PiggyBank\Infrastructure\Service\Deposit as DepositService;
+use PiggyBank\Application\Service\Deposit as DepositService;
 
 class DepositFactory
 {

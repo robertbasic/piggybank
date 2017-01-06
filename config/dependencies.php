@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
+use PiggyBank\Application\Service\Deposit;
+use PiggyBank\Application\Service\DepositFactory;
 use PiggyBank\Infrastructure\DatabaseConnectionFactory;
 use PiggyBank\Infrastructure\Repository;
-use PiggyBank\Infrastructure\Service\Deposit;
-use PiggyBank\Infrastructure\Service\DepositFactory;
 
 return [
     'dependencies' => [

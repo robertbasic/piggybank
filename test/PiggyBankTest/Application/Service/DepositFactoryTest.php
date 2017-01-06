@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace PiggyBankTest\Infrastructure\Service;
+namespace PiggyBankTest\Application\Service;
 
 use Mockery as m;
 use Mockery\Adapter\Phpunit\MockeryTestCase;
+use PiggyBank\Application\Service\Deposit;
+use PiggyBank\Application\Service\DepositFactory;
 use PiggyBank\Infrastructure\Repository\PiggyBank as PiggyBankRepository;
-use PiggyBank\Infrastructure\Service\Deposit;
-use PiggyBank\Infrastructure\Service\DepositFactory;
 
 class DepositFactoryTest extends MockeryTestCase
 {

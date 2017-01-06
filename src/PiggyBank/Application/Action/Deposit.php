@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace PiggyBank\Application\Action;
 
 use InvalidArgumentException;
-use PiggyBank\Infrastructure\Service\Deposit as DepositService;
-use PiggyBank\Infrastructure\Service\Exception\RepositoryException;
+use PiggyBank\Application\Service\Deposit as DepositService;
+use PiggyBank\Application\Service\Exception\RepositoryException;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\HtmlResponse;

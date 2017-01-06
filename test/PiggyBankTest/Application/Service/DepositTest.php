@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace PiggyBankTest\Infrastructure\Service;
+namespace PiggyBankTest\Application\Service;
 
 use Doctrine\DBAL\Driver\PDOException;
 use Doctrine\DBAL\Exception\ServerException;
 use Mockery as m;
 use Mockery\Adapter\Phpunit\MockeryTestCase;
+use PiggyBank\Application\Service\Deposit;
 use PiggyBank\Infrastructure\Repository\PiggyBank;
-use PiggyBank\Infrastructure\Service\Deposit;
 
 class DepositTest extends MockeryTestCase
 {
@@ -62,7 +62,7 @@ class DepositTest extends MockeryTestCase
 
     public function test_throws_exception_when_saving_to_repository_fails()
     {
-        self::setExpectedException('PiggyBank\Infrastructure\Service\Exception\RepositoryException');
+        self::setExpectedException('PiggyBank\Application\Service\Exception\RepositoryException');
 
         $amount = '2.43';
 

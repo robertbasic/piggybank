@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace PiggyBank\Infrastructure\Service\Exception;
+namespace PiggyBank\Application\Service\Exception;
 
 class RepositoryException extends \RuntimeException
 {

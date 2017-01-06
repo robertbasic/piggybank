@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace PiggyBank\Infrastructure\Service;
+namespace PiggyBank\Application\Service;
 
 use Interop\Container\ContainerInterface;
 use PiggyBank\Infrastructure\Repository\PiggyBank as PiggyBankRepository;
