@@ -9,7 +9,7 @@ use Doctrine\DBAL\Exception\ServerException;
 use Mockery as m;
 use Mockery\Adapter\Phpunit\MockeryTestCase;
 use PiggyBank\Application\Service\Deposit;
-use PiggyBank\Infrastructure\Repository\PiggyBank;
+use PiggyBank\Domain\PiggyBank;
 
 class DepositTest extends MockeryTestCase
 {
@@ -21,17 +21,14 @@ class DepositTest extends MockeryTestCase
     {
         $this->repositoryMock = m::mock('PiggyBank\Infrastructure\Repository\PiggyBank');
 
-        $this->service = new Deposit($this->repositoryMock);
+        $piggyBank = PiggyBank::withCurrentAmount(10.46);
+
+        $this->service = new Deposit($piggyBank, $this->repositoryMock);
     }
 
     public function test_deposits_amount()
     {
         $amount = '2.43';
-
-        $this->repositoryMock->shouldReceive('getCurrentAmount')
-            ->once()
-            ->withNoArgs()
-            ->andReturn(10.46);
 
         $this->repositoryMock->shouldReceive('save')
             ->once()
@@ -49,11 +46,6 @@ class DepositTest extends MockeryTestCase
 
         $amount = '0';
 
-        $this->repositoryMock->shouldReceive('getCurrentAmount')
-            ->once()
-            ->withNoArgs()
-            ->andReturn(10.46);
-
         $this->repositoryMock->shouldReceive('save')
             ->never();
 
@@ -65,11 +57,6 @@ class DepositTest extends MockeryTestCase
         self::setExpectedException('PiggyBank\Application\Service\Exception\RepositoryException');
 
         $amount = '2.43';
-
-        $this->repositoryMock->shouldReceive('getCurrentAmount')
-            ->once()
-            ->withNoArgs()
-            ->andReturn(10.46);
 
         $exception = new ServerException('message', new PDOException(new \PDOException()));
 

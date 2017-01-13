@@ -6,6 +6,7 @@ namespace PiggyBank\Application\Service;
 
 use Interop\Container\ContainerInterface;
 use PiggyBank\Infrastructure\Repository\PiggyBank as PiggyBankRepository;
+use PiggyBank\Domain\PiggyBank;
 
 class DepositFactory
 {
@@ -13,6 +14,9 @@ class DepositFactory
     {
         $repository = $container->get(PiggyBankRepository::class);
 
-        return new Deposit($repository);
+        $currentAmount = $repository->getCurrentAmount();
+        $piggyBank = PiggyBank::withCurrentAmount($currentAmount);
+
+        return new Deposit($piggyBank, $repository);
     }
 }

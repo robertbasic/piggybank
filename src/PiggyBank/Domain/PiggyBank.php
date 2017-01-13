@@ -18,6 +18,11 @@ class PiggyBank
         $this->totalAmount = Money::fromFloat($currentAmount);
     }
 
+    public static function withCurrentAmount(float $currentAmount)
+    {
+        return new self($currentAmount);
+    }
+
     public function deposit(string $amount)
     {
         $deposit = Money::fromFloat((float) $amount);

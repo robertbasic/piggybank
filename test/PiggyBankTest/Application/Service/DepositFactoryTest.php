@@ -15,6 +15,9 @@ class DepositFactoryTest extends MockeryTestCase
     public function test_deposit_factory_creates_deposit_service()
     {
         $repository = m::mock('PiggyBank\Infrastructure\Repository\PiggyBank');
+        $repository->shouldReceive('getCurrentAmount')
+            ->once()
+            ->andReturn(10.46);
 
         $container = m::mock('Zend\ServiceManager\ServiceManager');
         $container->shouldReceive('get')

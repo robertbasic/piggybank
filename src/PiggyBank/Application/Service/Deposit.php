@@ -11,27 +11,27 @@ use PiggyBank\Infrastructure\Repository\PiggyBank as PiggyBankRepository;
 
 class Deposit
 {
+    protected $piggyBank;
+
     protected $repository;
 
-    public function __construct(PiggyBankRepository $repository)
+    public function __construct(PiggyBank $piggyBank, PiggyBankRepository $repository)
     {
+        $this->piggyBank = $piggyBank;
         $this->repository = $repository;
     }
 
     public function deposit(string $amount) : bool
     {
-        $currentAmount = $this->repository->getCurrentAmount();
-
-        $piggyBank = new PiggyBank($currentAmount);
-
         try {
-            $piggyBank->deposit($amount);
+            $this->piggyBank->deposit($amount);
         } catch (InvalidDepositAmount $e) {
             throw new \InvalidArgumentException($e->getMessage());
         }
 
         try {
-            return $this->repository->save($piggyBank->getTotalDeposit());
+            $totalDeposit = $this->piggyBank->getTotalDeposit();
+            return $this->repository->save($totalDeposit);
         } catch (ServerException $e) {
             throw new Exception\RepositoryException("Saving to repository failed!", $e->getCode(), $e);
         }
