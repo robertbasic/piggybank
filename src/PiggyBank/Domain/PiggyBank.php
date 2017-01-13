@@ -13,7 +13,7 @@ class PiggyBank
      */
     private $totalAmount;
 
-    public function __construct(float $currentAmount)
+    private function __construct(float $currentAmount)
     {
         $this->totalAmount = Money::fromFloat($currentAmount);
     }

@@ -13,7 +13,7 @@ class PiggyBankTest extends \PHPUnit_Framework_TestCase
     {
         $amount = '100';
 
-        $piggyBank = new PiggyBank(0);
+        $piggyBank = PiggyBank::withCurrentAmount(0);
 
         $resultStartAmount = $piggyBank->getTotalDeposit();
 
@@ -33,7 +33,7 @@ class PiggyBankTest extends \PHPUnit_Framework_TestCase
         $firstAmount = '100';
         $secondAmount = '55.6';
 
-        $piggyBank = new PiggyBank(0);
+        $piggyBank = PiggyBank::withCurrentAmount(0);
 
         $piggyBank->deposit($firstAmount);
         $piggyBank->deposit($secondAmount);
@@ -49,7 +49,7 @@ class PiggyBankTest extends \PHPUnit_Framework_TestCase
     {
         $amount = '100';
 
-        $piggyBank = new PiggyBank(20);
+        $piggyBank = PiggyBank::withCurrentAmount(20);
 
         $resultStartAmount = $piggyBank->getTotalDeposit();
 
@@ -70,7 +70,7 @@ class PiggyBankTest extends \PHPUnit_Framework_TestCase
 
         $amount = '0';
 
-        $piggyBank = new PiggyBank(0);
+        $piggyBank = PiggyBank::withCurrentAmount(0);
 
         $piggyBank->deposit($amount);
     }
