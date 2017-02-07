@@ -7,12 +7,15 @@ namespace PiggyBankTest\Application\Service;
 use Doctrine\DBAL\Driver\PDOException;
 use Doctrine\DBAL\Exception\ServerException;
 use Mockery as m;
-use Mockery\Adapter\Phpunit\MockeryTestCase;
+use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
+use PHPUnit\Framework\TestCase;
 use PiggyBank\Application\Service\Deposit;
 use PiggyBank\Domain\PiggyBank;
 
-class DepositTest extends MockeryTestCase
+class DepositTest extends TestCase
 {
+    use MockeryPHPUnitIntegration;
+
     protected $service;
 
     protected $repositoryMock;
@@ -42,7 +45,7 @@ class DepositTest extends MockeryTestCase
 
     public function test_throws_exception_for_zero_amount_to_deposit()
     {
-        self::setExpectedException('\InvalidArgumentException');
+        self::expectException('\InvalidArgumentException');
 
         $amount = '0';
 
@@ -54,7 +57,7 @@ class DepositTest extends MockeryTestCase
 
     public function test_throws_exception_when_saving_to_repository_fails()
     {
-        self::setExpectedException('PiggyBank\Application\Service\Exception\RepositoryException');
+        self::expectException('PiggyBank\Application\Service\Exception\RepositoryException');
 
         $amount = '2.43';
 

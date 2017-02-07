@@ -8,12 +8,15 @@ define('DB_CONNECTION', 'DB_CONNECTION');
 
 use Doctrine\DBAL\Driver\Connection;
 use Mockery as m;
-use Mockery\Adapter\Phpunit\MockeryTestCase;
+use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
+use PHPUnit\Framework\TestCase;
 use PiggyBank\Infrastructure\Repository\PiggyBank;
 use PiggyBank\Infrastructure\Repository\PiggyBankFactory;
 
-class PiggyBankFactoryTest extends MockeryTestCase
+class PiggyBankFactoryTest extends TestCase
 {
+    use MockeryPHPUnitIntegration;
+
     public function test_piggybank_factory_creates_piggybank_repository()
     {
         $connection = m::mock('Doctrine\DBAL\Driver\Connection');

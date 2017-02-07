@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace PiggyBankTest\Domain;
 
+use PHPUnit\Framework\TestCase;
 use PiggyBank\Domain\Money;
 
-class MoneyTest extends \PHPUnit_Framework_TestCase
+class MoneyTest extends TestCase
 {
     public function test_amount_returned_is_same_as_amount_put_in()
     {

@@ -8,11 +8,14 @@ use Doctrine\DBAL\Driver\Connection;
 use Doctrine\DBAL\Driver\Statement;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Mockery as m;
-use Mockery\Adapter\Phpunit\MockeryTestCase;
+use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
+use PHPUnit\Framework\TestCase;
 use PiggyBank\Infrastructure\Repository\PiggyBank;
 
-class PiggyBankTest extends MockeryTestCase
+class PiggyBankTest extends TestCase
 {
+    use MockeryPHPUnitIntegration;
+
     protected $repository;
 
     protected $queryBuilderMock;

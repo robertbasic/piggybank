@@ -5,13 +5,16 @@ declare(strict_types=1);
 namespace PiggyBankTest\Application\Service;
 
 use Mockery as m;
-use Mockery\Adapter\Phpunit\MockeryTestCase;
+use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
+use PHPUnit\Framework\TestCase;
 use PiggyBank\Application\Service\Deposit;
 use PiggyBank\Application\Service\DepositFactory;
 use PiggyBank\Infrastructure\Repository\PiggyBank as PiggyBankRepository;
 
-class DepositFactoryTest extends MockeryTestCase
+class DepositFactoryTest extends TestCase
 {
+    use MockeryPHPUnitIntegration;
+
     public function test_deposit_factory_creates_deposit_service()
     {
         $repository = m::mock('PiggyBank\Infrastructure\Repository\PiggyBank');

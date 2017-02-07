@@ -9,7 +9,7 @@ use PiggyBank\Domain\Exception\InvalidDepositAmount;
 class PiggyBank
 {
     /**
-     * @var PiggyBank\Domain\Money
+     * @var \PiggyBank\Domain\Money
      */
     private $totalAmount;
 
