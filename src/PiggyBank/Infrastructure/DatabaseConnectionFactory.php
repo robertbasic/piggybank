@@ -6,7 +6,7 @@ namespace PiggyBank\Infrastructure;
 
 use Doctrine\DBAL\DriverManager;
 use Doctrine\DBAL\Driver\Connection;
-use Interop\Container\ContainerInterface;
+use Psr\Container\ContainerInterface;
 
 class DatabaseConnectionFactory
 {
