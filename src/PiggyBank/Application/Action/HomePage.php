@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace PiggyBank\Application\Action;
 
 use Interop\Http\ServerMiddleware\DelegateInterface;
+use Interop\Http\ServerMiddleware\MiddlewareInterface;
 use PiggyBank\Infrastructure\Repository\PiggyBank;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -12,7 +13,7 @@ use Zend\Diactoros\Response\HtmlResponse;
 use Zend\Expressive\Router\RouterInterface;
 use Zend\Expressive\Template\TemplateRendererInterface;
 
-class HomePage
+class HomePage implements MiddlewareInterface
 {
     private $router;
 
@@ -27,7 +28,7 @@ class HomePage
         $this->repository = $repository;
     }
 
-    public function __invoke(ServerRequestInterface $request, DelegateInterface $delegate) : HtmlResponse
+    public function process(ServerRequestInterface $request, DelegateInterface $delegate) : HtmlResponse
     {
         $flash = $request->getAttribute('flash');
 

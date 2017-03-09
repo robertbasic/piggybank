@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace PiggyBank\Application\Action;
 
 use Interop\Http\ServerMiddleware\DelegateInterface;
+use Interop\Http\ServerMiddleware\MiddlewareInterface;
 use InvalidArgumentException;
 use PiggyBank\Application\Service\Deposit as DepositService;
 use PiggyBank\Application\Service\Exception\RepositoryException;
@@ -15,7 +16,7 @@ use Zend\Diactoros\Response\RedirectResponse;
 use Zend\Expressive\Router\RouterInterface;
 use Zend\Expressive\Template\TemplateRendererInterface;
 
-class Deposit
+class Deposit implements MiddlewareInterface
 {
     private $router;
 
@@ -30,7 +31,7 @@ class Deposit
         $this->deposit = $deposit;
     }
 
-    public function __invoke(ServerRequestInterface $request, DelegateInterface $delegate) : ResponseInterface
+    public function process(ServerRequestInterface $request, DelegateInterface $delegate) : ResponseInterface
     {
         $amount = $request->getParsedBody()['amount'];
 
