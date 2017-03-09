@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace PiggyBank\Application\Action;
 
+use Interop\Http\ServerMiddleware\DelegateInterface;
 use InvalidArgumentException;
 use PiggyBank\Application\Service\Deposit as DepositService;
 use PiggyBank\Application\Service\Exception\RepositoryException;
@@ -28,7 +29,7 @@ class Deposit
         $this->deposit = $deposit;
     }
 
-    public function __invoke(ServerRequestInterface $request, ResponseInterface $response, $next) : ResponseInterface
+    public function __invoke(ServerRequestInterface $request, DelegateInterface $delegate) : ResponseInterface
     {
         $amount = $request->getParsedBody()['amount'];
 

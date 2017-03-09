@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace PiggyBank\Application\Action;
 
+use Interop\Http\ServerMiddleware\DelegateInterface;
 use PiggyBank\Infrastructure\Repository\PiggyBank;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -26,7 +27,7 @@ class HomePage
         $this->repository = $repository;
     }
 
-    public function __invoke(ServerRequestInterface $request, ResponseInterface $response, $next) : HtmlResponse
+    public function __invoke(ServerRequestInterface $request, DelegateInterface $delegate) : HtmlResponse
     {
         $flash = $request->getAttribute('flash');
 
