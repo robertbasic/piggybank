@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace PiggyBank\Infrastructure\Repository;
 
-use Interop\Container\ContainerInterface;
+use Psr\Container\ContainerInterface;
 
 class PiggyBankFactory
 {

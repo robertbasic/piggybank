@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace PiggyBank\Application\Service;
 
-use Interop\Container\ContainerInterface;
+use Psr\Container\ContainerInterface;
 use PiggyBank\Infrastructure\Repository\PiggyBank as PiggyBankRepository;
 use PiggyBank\Domain\PiggyBank;
 

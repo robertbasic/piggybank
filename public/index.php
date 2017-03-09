@@ -11,7 +11,7 @@ use Whoops\Handler\PrettyPageHandler;
 use Whoops\Run as Whoops;
 use Zend\Expressive\Application;
 use Zend\Expressive\TemplatedErrorHandler;
-use Zend\Expressive\WhoopsErrorHandler;
+/* use Zend\Expressive\WhoopsErrorHandler; */
 use Zend\ServiceManager\Config;
 use Zend\ServiceManager\ServiceManager;
 
@@ -36,12 +36,12 @@ $whoops->writeToOutput(false);
 $whoops->allowQuit(false);
 $whoops->pushHandler($handler);
 
-$errorHandler = new WhoopsErrorHandler($whoops, $handler, $template, 'error::404', 'error::error');
+/* $errorHandler = new WhoopsErrorHandler($whoops, $handler, $template, 'error::404', 'error::error'); */
 
 $app = new Application(
     $router,
-    $container,
-    $errorHandler
+    $container
+    /* $errorHandler */
 );
 
 $app->pipeRoutingMiddleware();
@@ -51,5 +51,5 @@ $app->pipeDispatchMiddleware();
 $app->get('/', HomePage::class);
 $app->post('/deposit', Deposit::class);
 
-$whoops->register();
+/* $whoops->register(); */
 $app->run();
