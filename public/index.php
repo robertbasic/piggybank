@@ -51,5 +51,5 @@ $app->pipeDispatchMiddleware();
 $app->get('/', HomePage::class);
 $app->post('/deposit', Deposit::class);
 
-$whoops->register();
+/* $whoops->register(); */
 $app->run();
