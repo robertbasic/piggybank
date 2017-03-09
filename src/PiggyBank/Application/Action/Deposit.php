@@ -11,6 +11,7 @@ use PiggyBank\Application\Service\Exception\RepositoryException;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\HtmlResponse;
+use Zend\Diactoros\Response\RedirectResponse;
 use Zend\Expressive\Router\RouterInterface;
 use Zend\Expressive\Template\TemplateRendererInterface;
 
@@ -45,6 +46,6 @@ class Deposit
         $flash = $request->getAttribute('flash');
         $flash->addMessage($message[0], $message[1]);
 
-        return $response->withAddedHeader('Location', '/');
+        return new RedirectResponse('/');
     }
 }
